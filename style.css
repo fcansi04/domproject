@@ -1,5 +1,20 @@
 /* The page is NOT responsive. You can implement responsiveness yourself if you wanna have some fun 😃 */
 
+.red_square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff585f;
+  width: 40rem;
+  height: 40rem;
+}
+
+.green_square {
+  background-color: #5ec576;
+  width: 20rem;
+  height: 20rem;
+}
+
 :root {
   --color-primary: #5ec576;
   --color-secondary: #ffcb03;
