@@ -108,3 +108,26 @@ const obsObtions = {
 const observer = new IntersectionObserver(callback, obsObtions);
 const header = document.querySelector(".header");
 observer.observe(header);
+
+const lazyImages = document.querySelectorAll(".features__img");
+
+const obj = {
+  root: null,
+  threshold: 0,
+};
+
+const observerFunction = function (entries, observer) {
+  const [entry] = entries;
+  const lazzy = entry.target.src;
+  const img = entry.target.dataset.src;
+  if (!entry.isIntersecting) return;
+  entry.target.src = img;
+  entry.target.classList.remove("lazy-img");
+  console.log(entry);
+
+  observer_lazy.unobserve(entry.target);
+};
+
+const observer_lazy = new IntersectionObserver(observerFunction, obj);
+
+lazyImages.forEach(img => observer_lazy.observe(img));
