@@ -8,7 +8,7 @@ const overlay = document.querySelector(".overlay");
 const btnCloseModal = document.querySelector(".btn--close-modal");
 const btnsOpenModal = document.querySelectorAll(".btn--show-modal");
 const navLinks = document.querySelectorAll(".nav__link");
-
+const navContanier = document.querySelector(".nav");
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove("hidden");
@@ -64,3 +64,47 @@ document.querySelector(".nav__links").addEventListener("click", function (e) {
     document.querySelector(id).scrollIntoView({ behavior: "smooth" });
   }
 });
+
+const operationCont = document.querySelector(".operations__tab-container");
+const operationsBtn = document.querySelectorAll(".operations__tab");
+const opContents = document.querySelectorAll(".operations__content ");
+
+operationCont.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".operations__tab");
+  if (!clicked) return;
+
+  operationsBtn.forEach(r => r.classList.remove("operations__tab--active"));
+
+  clicked.classList.add("operations__tab--active");
+  const active_content = document.querySelector(
+    `.operations__content--${clicked.dataset.tab}`
+  );
+  opContents.forEach(c => c.classList.remove("operations__content--active"));
+  active_content.classList.add("operations__content--active");
+});
+
+/*
+window.addEventListener("scroll", function () {
+  //console.log(navContanier.getBoundingClientRect());
+  if (window.scrollY > 742) {
+    navContanier.classList.add("sticky");
+  } else {
+    navContanier.classList.remove("sticky");
+  }
+});
+*/
+
+const callback = function (entries, observer) {
+  if (entries[0].isIntersecting == false) navContanier.classList.add("sticky");
+  else navContanier.classList.remove("sticky");
+};
+
+const obsObtions = {
+  root: null,
+  threshold: 0,
+  rootMargin: "-100px",
+};
+
+const observer = new IntersectionObserver(callback, obsObtions);
+const header = document.querySelector(".header");
+observer.observe(header);
